@@ -4,8 +4,6 @@ contiene entradas, salidas y balance
 
 '''
 class Cuenta():
-    cliente = ''
-    saldo = 0.0
 
     def __init__(self, nombre, saldo = 0.0):
         """ Crea un cuenta para un cliente con su nombre """
@@ -21,9 +19,11 @@ class Cuenta():
         """ Retira dinero de la cuenta, si es que este no sobregira """
         if cantidad > self.saldo:
             print('Sobregirado!')
+            return False
         else:
             self.saldo -= cantidad
             print(f'Retiro de ${cantidad} realizado con exito, saldo actual ${self.saldo}')
+            return True
 
     def estado_cuenta(self):
         """ imprime el saldo y nombre del cliente """

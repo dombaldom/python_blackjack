@@ -27,7 +27,22 @@ class PintaCartas():
                 self._cuadros(lista)
         
 
-    def pinta_todo(self, cartas):
+    def pinta_todo(self, cartas, jugador):
+        """ muestra todas las cartas del mazo las cartas vienen con el formato 
+        'diez-diamante': 10, 'ocho-corazon': 8, 'cinco-trebol': 5, 'rey-pica': 10
+        se extrae la llave nombre y se separa por '-' se pinta la carta.
+        
+        ***************   ***************   ***************  ***************           
+        * 10 diamante *   * 8 corazon  *    *  5 trebol   *  *  rey pica   *
+        ***************   ***************   ***************  ***************
+        """
+        print(f'\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \nPinta cartas del jugador {jugador}:\n++++++++++++++++++++++++++++++++++++++++++++')
+        for c in cartas:
+            nombre = c.get('name')
+            lista = nombre.split('-')
+            self._cuadros(lista)
+        
+    def pinta_carta_as(self, cartas):
         """ muestra todas las cartas del mazo las cartas vienen con el formato 
         'diez-diamante': 10, 'ocho-corazon': 8, 'cinco-trebol': 5, 'rey-pica': 10
         se extrae la llave nombre y se separa por '-' se pinta la carta.
@@ -37,10 +52,11 @@ class PintaCartas():
         ***************   ***************   ***************  ***************
         """
         for c in cartas:
-            nombre = c.get('nombre')
+            nombre = c.get('name')
             lista = nombre.split('-')
             self._cuadros(lista)
-        
+
+
 
     def resumen(self, cartas, jugador):
         """ se muestra el total de cartas y el total sumado de las cartas
@@ -56,7 +72,7 @@ class PintaCartas():
         total = 0
 
         for c in cartas:
-            total += c.get('valor')
+            total += c['value']
         
         print(f'*'.ljust(17,'*'))
         print(f'*    {jugador}'.ljust(16,' ') + '*')
@@ -99,10 +115,30 @@ class PintaCartas():
             print('Algo salio mal!')
         
 
+    def paint_winner(self, jugador):
+        """ Prints the winner """
+        print('*'.ljust(39,'*'))
+        print(f'* Player {jugador} you are the winner!'.ljust(38,' ') + '*')  
+        print('*'.ljust(39,'*'))
 
+    def paint_loser(self, jugador):
+        """ Prints loser """
+        print('*'.ljust(39,'*'))
+        print(f'* Player {jugador} sorry you lose!'.ljust(38,' ') + '*')  
+        print('*'.ljust(39,'*'))
+
+    def paint_tie(self, jugador):
+        """ Prints draw """
+        print('*'.ljust(39,'*'))
+        print(f'* Player {jugador} we tie!'.ljust(38,' ') + '*')  
+        print('*'.ljust(39,'*'))
+
+''' test 
 a = PintaCartas()
-l = [{'nombre':'dos-picas', 'valor':2},{'nombre':'cinco-corazon', 'valor':5}]
-a.pinta_todo(l)
+l = [{'name':'dos-picas', 'value':2},{'name':'cinco-corazon', 'value':5}]
+a.pinta_todo(l, 's')
 print('\n')
 a.oculta_primera_carta(l)
 a.resumen(l, 'Jugador1')
+a.paint_winner(2)
+'''
